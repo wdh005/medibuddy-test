@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 
 const MainPage = () => {
 	const [email, setEamil] = useState("");
 	const [name, setName] = useState("");
+	const history = useHistory();
+	const onLogOut = () => {
+		history.push("/login");
+		localStorage.removeItem("email");
+		localStorage.removeItem("password");
+		localStorage.removeItem("name");
+		localStorage.removeItem("staySignIn");
+	};
 	useEffect(() => {
 		setEamil(localStorage.getItem("email"));
 		setName(localStorage.getItem("name"));
@@ -24,6 +31,9 @@ const MainPage = () => {
 				{email}
 			</Link>
 			<p>{name}</p>
+			<button type="button" onClick={onLogOut}>
+				로그아웃
+			</button>
 		</div>
 	);
 };

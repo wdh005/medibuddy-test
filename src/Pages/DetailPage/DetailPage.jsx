@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import queryString from "query-string";
 
@@ -7,7 +7,7 @@ const DetailPage = () => {
 	const { email } = query;
 	const [openInput, setOpenInput] = useState(false);
 	const [updateEmail, setUpdateEmail] = useState("");
-    const history = useHistory()
+	const history = useHistory();
 	const onInputHandler = () => {
 		setOpenInput(prev => !prev);
 	};
@@ -15,8 +15,11 @@ const DetailPage = () => {
 		setUpdateEmail(e.currentTarget.value);
 	};
 	const onSubmitHandler = e => {
-        localStorage.setItem("email", updateEmail);
-        history.push('/main')
+		localStorage.setItem("email", updateEmail);
+		history.push("/main");
+	};
+	const moveToMain = () => {
+		history.push("/main");
 	};
 	return (
 		<div
@@ -37,7 +40,15 @@ const DetailPage = () => {
 				}}
 			>
 				<p style={{ marginRight: "10px" }}>{email}</p>
-				<button onClick={onInputHandler}>수정하기</button>
+				<button
+					style={{ marginRight: "10px" }}
+					onClick={onInputHandler}
+				>
+					수정하기
+				</button>
+				<button style={{ marginRight: "10px" }} onClick={moveToMain}>
+					홈
+				</button>
 			</div>
 			{openInput && (
 				<form
